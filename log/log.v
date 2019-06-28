@@ -20,34 +20,39 @@ pub fn (l mut Log) set_level(level int){
     l.level = level
 }
 
-pub fn (l Log) fatal(s string){
-    panic(s)
+interface strer{
+pub:
+    str() string
 }
 
-pub fn (l Log) error(s string){
+pub fn (l Log) fatal(s strer){
+    panic(s.str())
+}
+
+pub fn (l Log) error(s strer){
     if l.level >= ERROR{
         f := termcolor.red('E')
-        println('[$f]$s')
+        println('[$f]${s.str()}')
     }
 }
 
-pub fn (l Log) warn(s string){
+pub fn (l Log) warn(s strer){
     if l.level >= WARN{
         f := termcolor.yellow('W')
-        println('[$f]$s')
+        println('[$f]${s.str()}')
     }
 }
 
-pub fn (l Log) info(s string){
+pub fn (l Log) info(s strer){
     if l.level >= INFO{
         f := termcolor.white('I')
-        println('[$f]$s')
+        println('[$f]${s.str()}')
     }
 }
 
-pub fn (l Log) debug(s string){
+pub fn (l Log) debug(s strer){
     if l.level >= DEBUG{
         f := termcolor.blue('D')
-        println('[$f]$s')
+        println('[$f]${s.str()}')
     }
 }
